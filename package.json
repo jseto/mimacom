@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "npm run server & webpack serve",
     "build": "webpack --mode=production",
-    "server": "json-server --watch db.json",
+    "server": "json-server --watch server-api/db.json",
     "test": "jest",
     "debug": "node --inspect-brk node_modules/.bin/jest --runInBand --coverage false"
   },
