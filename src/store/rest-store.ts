@@ -1,19 +1,19 @@
-import { Item } from '../item/item';
+import { Product } from '../products/product';
 import { GenericStore } from './store';
 
 const END_POINT = 'localhost:3000'
 
 export class RestStore extends GenericStore {
 
-	getItems( page: number ): Promise<Item[]> {
-		return new Promise<Item[]>( ( resolve, reject ) => {
+	getItems( page: number ): Promise<Product[]> {
+		return new Promise<Product[]>( ( resolve, reject ) => {
 			
 			fetch(`${END_POINT}/grocery?_page=${ page }`)
 				.then( async resp => {
 					const data: any[] = await resp.json() 
-					const items: Item[] = []
+					const items: Product[] = []
 					data.forEach( element => {
-						items.push( new Item().fromObject( element ) )
+						items.push( new Product().fromObject( element ) )
 					});
 					resolve( items )
 				})
@@ -21,7 +21,7 @@ export class RestStore extends GenericStore {
 		})
 	}
 
-	updateItem( item: Item ): Promise<Response> {
+	updateItem( item: Product ): Promise<Response> {
 		return fetch(`${ END_POINT }/grocery/${ item.id }`, {
 			method: 'patch',
 			body: JSON.stringify( item.toObject() )

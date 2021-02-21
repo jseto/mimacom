@@ -1,4 +1,4 @@
-import {Observable} from './Observable'
+import {Observable} from './observable'
 
 class ObserverTest {
 		public changed: boolean
@@ -60,5 +60,28 @@ describe('observer', () => {
 		observable.notify(obj)
 
 		expect( myCallback ).toHaveBeenCalledWith( obj )
+	})
+
+	it('should not notify removed listeners', ()=>{
+		const callbackOne = jest.fn()
+		const callbackTwo = jest.fn()
+		const callbackThree = jest.fn()
+		observable.subscribe(callbackOne)
+		observable.subscribe(callbackTwo)
+		observable.subscribe(callbackThree)
+		
+		observable.notify()
+
+		expect(callbackOne).toHaveBeenCalledTimes(1)
+		expect(callbackTwo).toHaveBeenCalledTimes(1)
+		expect(callbackThree).toHaveBeenCalledTimes(1)
+
+		observable.unsubscribe( callbackThree )
+
+		observable.notify()
+
+		expect(callbackOne).toHaveBeenCalledTimes(2)
+		expect(callbackTwo).toHaveBeenCalledTimes(2)
+		expect(callbackThree).toHaveBeenCalledTimes(1)
 	})
 })

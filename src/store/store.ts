@@ -1,9 +1,9 @@
-import { Item } from '../item/item';
+import { Product } from '../products/product';
 import { Persistent, PersistentProperty } from '../libs/persistent/persistent';
 
 export abstract class GenericStore {
-	abstract getItems( page: number ): Promise<Item[]>
-	abstract updateItem( item: Item ): Promise<Response>
+	abstract getItems( page: number ): Promise<Product[]>
+	abstract updateItem( item: Product ): Promise<Response>
 }
 
 type StoreFactory = ()=> GenericStore
@@ -34,11 +34,11 @@ export class Store extends GenericStore {
 		return this._instance || ( this._instance = new Store( this._storeFactory ) )
 	}
 
-	getItems( page: number ): Promise<Item[]> {
+	getItems( page: number ): Promise<Product[]> {
 		return this._concreteStore.getItems( page )
 	}
 
-	updateItem( item: Item ): Promise<Response> {
+	updateItem( item: Product ): Promise<Response> {
 		return this._concreteStore.updateItem( item )
 	}
 

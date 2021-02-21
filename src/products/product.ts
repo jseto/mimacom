@@ -1,4 +1,4 @@
-import { Callback, Observable } from '../libs/observer/Observable';
+import { Callback, Observable } from '../libs/observer/observable';
 import { persistent, Persistent, PersistentProperty } from '../libs/persistent/persistent';
 import { ClassProps } from '../libs/types/utility-types';
 import { persistentBoolean } from '../store/store';
@@ -6,7 +6,7 @@ import { persistentBoolean } from '../store/store';
 type PropChangeEvent<T> = Partial<ClassProps<T>>
 type PropChangeCallback<T> = Callback<PropChangeEvent<T>>
 
-export class Item extends Persistent {
+export class Product extends Persistent {
 	get id() {
 		return this._id
 	}
@@ -89,5 +89,5 @@ export class Item extends Persistent {
 	@persistent private _productDescription: string
 	@persistentBoolean private _favorite: boolean
 
-	protected _onChange: Observable<PropChangeEvent<Item>> = new Observable<PropChangeEvent<Item>>()
+	protected _onChange: Observable<PropChangeEvent<Product>> = new Observable<PropChangeEvent<Product>>()
 }
