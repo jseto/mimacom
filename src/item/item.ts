@@ -80,13 +80,13 @@ export class Item extends Persistent {
 		return false;
 	}
 
-	@persistent _id: string
-	@persistent _image_url: string
-	@persistent _stock: number
-	@persistent _productName: string
-	@persistent _price: number
-	@persistent _productDescription: string
-	@persistentBoolean _favorite: boolean
+	@persistent private _id: string
+	@persistent private _image_url: string
+	@persistent private _stock: number
+	@persistent private _productName: string
+	@persistent private _price: number
+	@persistent private _productDescription: string
+	@persistentBoolean private _favorite: boolean
 
 	protected _onChange: Observable<PropChangeEvent<Item>> = new Observable<PropChangeEvent<Item>>()
 }

@@ -5,7 +5,7 @@ export class Persistent {
 
 		this._persistentProperties.forEach( prop =>{
 			const value = obj[ prop.name.slice(1) ]
-			if ( value ) this[ prop.name ] = value
+			if ( value ) this[ prop.name ] = prop.fromObjectSpecial? prop.fromObjectSpecial( value ) : value
 		})
 
 		return this
@@ -15,7 +15,7 @@ export class Persistent {
 		const obj: Partial<ClassProps<this>> = {}
 
 		this._persistentProperties.forEach( prop => {
-			const value = this[ prop.name ]
+			const value = prop.toObjectSpecial? prop.toObjectSpecial( this[ prop.name ] ) : this[ prop.name ]
 			obj[ prop.name.slice(1) ] = value
 		})
 
