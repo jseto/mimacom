@@ -1,6 +1,7 @@
 import { Callback, Observable } from '../libs/observer/Observable';
 import { persistent, Persistent, PersistentProperty } from '../libs/persistent/persistent';
 import { ClassProps } from '../libs/types/utility-types';
+import { persistentBoolean } from '../store/store';
 
 type PropChangeEvent<T> = Partial<ClassProps<T>>
 type PropChangeCallback<T> = Callback<PropChangeEvent<T>>
@@ -89,22 +90,4 @@ export class Item extends Persistent {
 	@persistentBoolean private _favorite: boolean
 
 	protected _onChange: Observable<PropChangeEvent<Item>> = new Observable<PropChangeEvent<Item>>()
-}
-
-//TODO: move persistent boolean to DataStore
-
-/**
- * This decorator transforms a boolean value to match the database boolean format.
- * The true value is converted to literal "1" and false to "0"
- */
-export function persistentBoolean( target: Persistent, property: string ) {
-
-	const persistentProperty: PersistentProperty = {
-		name: property,
-		toObjectSpecial: ( value: boolean ) => value? '1' : '0',
-		fromObjectSpecial: ( value: string ) => value === '1'
-	}
-
-	if ( !target[ '_persistentProperties' ] )	target[ '_persistentProperties' ]  = [];
-	target[ '_persistentProperties' ].push( persistentProperty )
 }

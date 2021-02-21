@@ -1,4 +1,5 @@
 import { Item } from '../item/item';
+import { Persistent, PersistentProperty } from '../libs/persistent/persistent';
 
 export abstract class GenericStore {
 	abstract getItems( page: number ): Promise<Item[]>
@@ -44,4 +45,20 @@ export class Store extends GenericStore {
 	private static _instance: Store
 	private static _storeFactory: StoreFactory
 	private _concreteStore: GenericStore
+}
+
+/**
+ * This decorator transforms a boolean value to match the database boolean format.
+ * The true value is converted to literal "1" and false to "0"
+ */
+export function persistentBoolean( target: Persistent, property: string ) {
+
+	const persistentProperty: PersistentProperty = {
+		name: property,
+		toObjectSpecial: ( value: boolean ) => value? '1' : '0',
+		fromObjectSpecial: ( value: string ) => value === '1'
+	}
+
+	if ( !target[ '_persistentProperties' ] )	target[ '_persistentProperties' ]  = [];
+	target[ '_persistentProperties' ].push( persistentProperty )
 }
