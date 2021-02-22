@@ -1,10 +1,10 @@
 import { Callback, Observable } from '../libs/observer/observable';
 import { persistent, Persistent, PersistentProperty } from '../libs/persistent/persistent';
 import { ClassProps } from '../libs/types/utility-types';
-import { persistentBoolean } from '../store/store';
+import { persistentBoolean } from '../data-store/store';
 
-type PropChangeEvent<T> = Partial<ClassProps<T>>
-type PropChangeCallback<T> = Callback<PropChangeEvent<T>>
+export type PropChangeEvent<T> = Partial<ClassProps<T>>
+export type PropChangeCallback<T> = Callback<PropChangeEvent<T>>
 
 export class Product extends Persistent {
 	get id() {
@@ -51,6 +51,7 @@ export class Product extends Persistent {
 	 */
 	onChange( cb: PropChangeCallback<this> ) {
 		this._onChange.subscribe( cb )
+		return cb
 	}
 
 	/**
@@ -69,7 +70,7 @@ export class Product extends Persistent {
 	 * 									and therefore only existing property values are accepted
 	 * @param value the new value to assing to the property
 	 */
-	changeProp<P extends keyof this>( propName: P, value: this[ P ] ): boolean {
+	private changeProp<P extends keyof this>( propName: P, value: this[ P ] ): boolean {
 		const pName = '_' + propName;
 
 		if ( this[ pName ] !== value ) {

@@ -23,7 +23,7 @@ module.exports = ( env, arg ) => {
 				{
 					test: /\.svg$/,
 					use: [
-						'desvg-loader/preact', // Add loader (use 'desvg-loader/react' for React)
+						'desvg-loader/react', // Add loader (use 'desvg-loader/react' for React)
 						'svg-loader', // svg-loader must precede desvg-loader
 					],
 				},

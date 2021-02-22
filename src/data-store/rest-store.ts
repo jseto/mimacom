@@ -1,7 +1,7 @@
 import { Product } from '../products/product';
 import { GenericStore } from './store';
 
-const END_POINT = 'localhost:3000'
+const END_POINT = 'http://localhost:3000'
 
 export class RestStore extends GenericStore {
 
