@@ -1,21 +1,21 @@
 import { Product } from '../products/product';
 import { Persistent, PersistentProperty } from '../libs/persistent/persistent';
 
-export abstract class GenericStore {
+export abstract class GenericDataStore {
 	abstract getItems( page: number ): Promise<Product[]>
 	abstract updateItem( item: Product ): Promise<Response>
 }
 
-type StoreFactory = ()=> GenericStore
+type DataStoreFactory = ()=> GenericDataStore
 
 /**
  * Store is a singleton providing a façade to decouple access to concrete 
  * implementations of a Store. The concrete store should be registered before using
  * this class
  */
-export class Store extends GenericStore {
+export class DataStore extends GenericDataStore {
 
-	private constructor( storeFactory: StoreFactory ) {
+	private constructor( storeFactory: DataStoreFactory ) {
 		super()
 		this._concreteStore = storeFactory()
 	}
@@ -26,12 +26,12 @@ export class Store extends GenericStore {
 	 * @param storeFactory a function returning an instance of a concrete implementation
 	 *  										of a Store.
 	 */
-	static registerStoreFactory( storeFactory: StoreFactory ) {
+	static registerStoreFactory( storeFactory: DataStoreFactory ) {
 		this._storeFactory = storeFactory
 	}
 
 	static get instance() {
-		return this._instance || ( this._instance = new Store( this._storeFactory ) )
+		return this._instance || ( this._instance = new DataStore( this._storeFactory ) )
 	}
 
 	getItems( page: number ): Promise<Product[]> {
@@ -42,9 +42,9 @@ export class Store extends GenericStore {
 		return this._concreteStore.updateItem( item )
 	}
 
-	private static _instance: Store
-	private static _storeFactory: StoreFactory
-	private _concreteStore: GenericStore
+	private static _instance: DataStore
+	private static _storeFactory: DataStoreFactory
+	private _concreteStore: GenericDataStore
 }
 
 /**

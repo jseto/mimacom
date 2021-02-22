@@ -1,9 +1,9 @@
 import { Product } from '../products/product';
-import { GenericStore } from './store';
+import { GenericDataStore } from './data-store';
 
 const END_POINT = 'http://localhost:3000'
 
-export class RestStore extends GenericStore {
+export class RestStore extends GenericDataStore {
 
 	getItems( page: number ): Promise<Product[]> {
 		return new Promise<Product[]>( ( resolve, reject ) => {

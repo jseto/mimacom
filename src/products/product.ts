@@ -1,7 +1,7 @@
 import { Callback, Observable } from '../libs/observer/observable';
 import { persistent, Persistent, PersistentProperty } from '../libs/persistent/persistent';
 import { ClassProps } from '../libs/types/utility-types';
-import { persistentBoolean } from '../data-store/store';
+import { persistentBoolean } from '../data-store/data-store';
 
 export type PropChangeEvent<T> = Partial<ClassProps<T>>
 export type PropChangeCallback<T> = Callback<PropChangeEvent<T>>

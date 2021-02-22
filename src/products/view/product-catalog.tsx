@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Store } from '../../data-store/store';
+import { DataStore } from '../../data-store/data-store';
 import { Product } from '../product';
 import { ProductCard } from './product-card';
 import './product-catalog.scss'
@@ -23,15 +23,15 @@ export class ProductCatalog extends Component<{}, ProductCatalogState> {
 	async componentDidMount() {
 		this.setState({
 			productBuffer: [ 
-				...await Store.instance.getItems( this.state.currentPage ),
-				...await Store.instance.getItems( this.state.currentPage + 1 ),
-				...await Store.instance.getItems( this.state.currentPage + 2 )
+				...await DataStore.instance.getItems( this.state.currentPage ),
+				...await DataStore.instance.getItems( this.state.currentPage + 1 ),
+				...await DataStore.instance.getItems( this.state.currentPage + 2 )
 			]
 		})
 	}
 
 	private async loadMoreProducts() {
-		const products = await Store.instance.getItems( this.state.currentPage + 1 )
+		const products = await DataStore.instance.getItems( this.state.currentPage + 1 )
 
 		this.setState( prevState => ({
 			productBuffer: prevState.productBuffer.concat( products ).slice( this.state.itemsPerPage )
