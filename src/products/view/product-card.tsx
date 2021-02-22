@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { Heart } from '../../components.tsx/heart';
+import { ShopController } from '../../shop/shop-controller';
 import { Product, PropChangeCallback, PropChangeEvent } from '../product';
 import './product-card.scss'
 
 interface ProductCardProps {
 	product: Product
+	shopController: ShopController
 }
 
 interface ProductCardState extends Pick<PropChangeEvent<Product>,'favorite' | 'stock'> {}
@@ -30,7 +32,8 @@ export class ProductCard extends Component<ProductCardProps, ProductCardState> {
 	} 
 
 	render() {
-		const { image_url, stock,	productName, price, productDescription, favorite } = this.props.product
+		const { shopController, product } = this.props
+		const { image_url, stock,	productName, price, productDescription, favorite } = product
 
 		return (
 			<div className="product-card">
@@ -43,7 +46,9 @@ export class ProductCard extends Component<ProductCardProps, ProductCardState> {
 				<strong>${ price }</strong>
 				<p className="description">{ productDescription }</p>
 				<p>{ stock? `${ stock } left` : 'Out of stock' }</p>
-				<button>+ Add</button>
+				<button onClick={ ()=>shopController.cart.add( product ) }>
+					+ Add
+				</button>
 			</div>
 		)
 	}

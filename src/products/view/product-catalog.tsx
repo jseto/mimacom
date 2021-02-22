@@ -1,56 +1,48 @@
 import React, { Component } from 'react';
-import { DataStore } from '../../data-store/data-store';
+import { ShopController } from '../../shop/shop-controller';
 import { Product } from '../product';
 import { ProductCard } from './product-card';
 import './product-catalog.scss'
 
 interface ProductCatalogState {
-	currentPage: number
-	itemsPerPage: number
 	productBuffer: Product[]
 }
 
-export class ProductCatalog extends Component<{}, ProductCatalogState> {
+interface ProductCatalogProps {
+	shopController: ShopController
+}
+
+export class ProductCatalog extends Component<ProductCatalogProps, ProductCatalogState> {
 	constructor( props ) {
 		super( props )
 		this.state = { 
-			currentPage: 1,
-			itemsPerPage: 10,
 			productBuffer: []
 		}
 	}
 
 	async componentDidMount() {
+		await this.props.shopController.init()
+
 		this.setState({
-			productBuffer: [ 
-				...await DataStore.instance.getItems( this.state.currentPage ),
-				...await DataStore.instance.getItems( this.state.currentPage + 1 ),
-				...await DataStore.instance.getItems( this.state.currentPage + 2 )
-			]
+			productBuffer: this.props.shopController.products
 		})
-	}
-
-	private async loadMoreProducts() {
-		const products = await DataStore.instance.getItems( this.state.currentPage + 1 )
-
-		this.setState( prevState => ({
-			productBuffer: prevState.productBuffer.concat( products ).slice( this.state.itemsPerPage )
-		}))
 	}
 
 	render() {
 		const { productBuffer } = this.state
+		const { shopController } = this.props
 
 		return (
 			<div className="product-catalog">
 				{
 					productBuffer?.map( item => (
-						<ProductCard key={ item.id} product={ item } />
+						<ProductCard key={ item.id} 
+							product={ item } 
+							shopController={ shopController }
+						/>
 					))
 				}
 			</div>
 		)
 	}
-
-	// private productBuffer: Product[]	//TODO: convert to a linked link to easily get rid of previous products
 }

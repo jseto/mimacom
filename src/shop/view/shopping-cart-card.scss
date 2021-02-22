@@ -1,6 +1,6 @@
 @import "../../main.scss";
 
-.product-card {
+.shopping-cart-card {
 	margin: 1.5em;
 	padding: 1em;
 	border: solid 1px blue;
@@ -19,10 +19,4 @@
 		margin-right: auto;
 	}
 
-	.description {
-		@media all and (max-width: $mobile-width) {
-			display: none;
-		}
-
-	}
 }
