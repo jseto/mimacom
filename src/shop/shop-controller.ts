@@ -7,9 +7,6 @@ interface ProductBuffer {
 }
 
 export class ShopController {
-	constructor( maxBufferPages: number = 3 ) {
-		this._maxBufferPages = maxBufferPages
-	}
 
 	init() {
 		this._currentPage = 1
@@ -35,8 +32,6 @@ export class ShopController {
 				this._productBuffer[ this._currentPage - 1 ] = DataStore.instance.getItems( this._currentPage - 1 )
 		}
 
-		console.log( this._currentPage )
-
 		return this._productBuffer[ this._currentPage ]
 	}
 
@@ -51,5 +46,4 @@ export class ShopController {
 	readonly cart: CartController = new CartController()
 	private _productBuffer: ProductBuffer = {}
 	private _currentPage: number = 1
-	private _maxBufferPages: number
 }

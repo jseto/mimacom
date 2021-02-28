@@ -3,7 +3,9 @@
 .shopping-cart-card {
 	margin: 1.5em;
 	padding: 1em;
-	border: solid 1px blue;
+	border: solid 1px #e2e2fc;
+	border-radius: 10px;
+	box-shadow: 3px 3px #e2e2fc;
 	max-width: 15em;
 	@media all and (max-width: $mobile-width) {
 		max-width: 8em;

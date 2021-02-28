@@ -3,7 +3,9 @@
 .product-card {
 	margin: 1.5em;
 	padding: 1em;
-	border: solid 1px blue;
+	border: solid 1px #d3d3d3c2;
+	border-radius: 10px;
+	box-shadow: 4px 4px #d3d3d34d;
 	max-width: 15em;
 	@media all and (max-width: $mobile-width) {
 		max-width: 8em;

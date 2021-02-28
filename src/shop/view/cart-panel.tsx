@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { ProductCard } from '../../products/view/product-card';
 import { CartEventCallback } from '../cart-controller';
 import { ShopController } from '../shop-controller';
 import { ShoppingCartCard } from './shopping-cart-card';
+import './cart-panel.scss'
 
 interface CartPanelProps {
 	shopController: ShopController
@@ -22,7 +22,8 @@ export class CartPanel extends Component<CartPanelProps> {
 	}
 
 	render() {
-		const { cart } = this.props.shopController
+		const { shopController } = this.props
+		const { cart } = shopController
 
 		return (
 			<div className="cart-panel">
@@ -35,6 +36,7 @@ export class CartPanel extends Component<CartPanelProps> {
 						/>
 					))
 				}
+				<button onClick={()=> shopC}>Check-out</button>
 			</div>
 		)
 	}
