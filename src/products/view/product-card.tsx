@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Heart } from '../../components.tsx/heart';
+import { Heart } from '../../components/heart';
 import { ShopController } from '../../shop/shop-controller';
 import { Product, PropChangeCallback, PropChangeEvent } from '../product';
 import './product-card.scss'

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react"
 import { render } from "react-dom";
-import { ProductCatalog } from './products/view/product-catalog';
 import { RestStore } from './data-store/rest-store';
 import { DataStore } from './data-store/data-store';
 import { ShopController } from './shop/shop-controller';
 import { CartPanel } from './shop/view/cart-panel';
+import { ProductCatalog } from './shop/view/product-catalog';
 
 DataStore.registerStoreFactory( ()=> new RestStore() )
 

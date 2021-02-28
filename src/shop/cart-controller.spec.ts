@@ -55,4 +55,12 @@ describe('Cart Controller', ()=>{
 			amount: 0
 		}))
 	})
+
+	it('should throw out of stock if amount bigger than stock', ()=>{
+		cart.add( product )
+
+		expect( ()=>{
+			cart.modifyAmount( product, 8 )
+		}).toThrow()
+	})
 })
