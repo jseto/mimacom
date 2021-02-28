@@ -24,7 +24,7 @@ describe('Cart Controller', ()=>{
 	it( 'should add products to the cart', ()=>{
 		cart.add( product )
 
-		expect( cart.items[product.id] ).toBeDefined()
+		expect( cart.itemCollection[product.id] ).toBeDefined()
 		expect( callback ).toHaveBeenCalledWith(expect.objectContaining({ product: expect.objectContaining({ 
 			id: '41fd4fd9-95c7-4809-96db-a147d352fdbb'
 		})}))
@@ -47,7 +47,7 @@ describe('Cart Controller', ()=>{
 		cart.add( product )
 		cart.modifyAmount( product, -1 )
 
-		expect( cart.items ).toEqual({})
+		expect( cart.itemCollection ).toEqual({})
 		expect( callback ).toHaveBeenLastCalledWith(expect.objectContaining({ 
 			product: expect.objectContaining({ 
 				id: '41fd4fd9-95c7-4809-96db-a147d352fdbb'

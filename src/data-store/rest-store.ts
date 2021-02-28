@@ -23,8 +23,13 @@ export class RestStore extends GenericDataStore {
 
 	updateItem( item: Product ): Promise<Response> {
 		return fetch(`${ END_POINT }/grocery/${ item.id }`, {
-			method: 'patch',
-			body: JSON.stringify( item.toObject() )
+			method: 'put',
+			body: JSON.stringify( item.toObject() ),
+			headers: {
+				'Access-Control-Allow-Origin': '*',
+				'Content-Type': 'application/json'
+			},
+			mode: 'cors'
 		})
 	}
 }

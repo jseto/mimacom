@@ -29,14 +29,23 @@ export class CartPanel extends Component<CartPanelProps> {
 			<div className="cart-panel">
 				<h2>Cart</h2>
 				{
-					Object.values( cart.items ).map( item => (
+					Object.values( cart.itemCollection ).map( item => (
 						<ShoppingCartCard key={ item.product.id }
 							item={ item } 
-							shopController = { this.props.shopController } 
+							shopController = { shopController } 
 						/>
 					))
 				}
-				<button onClick={()=> shopC}>Check-out</button>
+				{ cart.items.length > 0 &&
+					<div>
+						<button onClick={ ()=> cart.checkOut() }>Check-out</button>
+						<span>
+							Total: ${ cart.items.reduce( ( prevVal, item ) => {
+								return prevVal + item.amount * item.product.price
+							}, 0 )}
+						</span>
+					</div>
+				}
 			</div>
 		)
 	}
