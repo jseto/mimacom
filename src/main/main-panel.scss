@@ -1,0 +1,34 @@
+@import "../main.scss";
+
+.main-panel {
+	.content {
+		position: relative;
+
+		.product-catalog {
+			display: inline-block;
+			max-width: 75%;
+			@media all and (max-width: $mobile-width) {
+				max-width: 100%;
+			}
+		}
+
+		.cart-panel {
+			display: inline-block;
+			position: fixed;
+			overflow-y: auto;
+			top: 0;
+			max-height: 100%;
+			@media all and (max-width: $mobile-width) {
+				position: relative;
+			}
+		}
+
+	}
+
+	.menu {
+		display: none;
+		@media all and (max-width: $mobile-width) {
+			display: block;
+		}
+	}
+}
